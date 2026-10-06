@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<h2>Employee List</h2>
+<form method="GET">
+    <label for="department">Department: </label>
+    <select name="department" id="department">
+        <option value="">All</option>
+        <option value="IT">IT</option>
+        <option value="HR">HR</option>
+        <option value="FIN">Finance</option>
+        <option value="MKT">Marketing</option>
+    </select>
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for employee in employees %}
+
+        <tr>
+            <td>{{ employee.Name }}</td>
+            <td>{{ employee.Department }}</td>
+            <td>{{ employee.Designation }}</td>
+
+            <td>
+                {% if employee.is_Active %}
+                    Active
+                {% else %}
+                    Inactive
+                {% endif %}
+            </td>
+
+            <td>
+                <a href="{% url 'employee_detail' employee.Employee_id %}">
+    View
+</a>
+            </td>
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="5">No employees found.</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<br>
+
+<a href="{% url 'home' %}">Back to Home</a>
+
+{% endblock %}

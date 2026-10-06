@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Project Details</h2>
+
+<p>
+    <strong>Project Name:</strong>
+    {{ project.Project_Name }}
+</p>
+
+<p>
+    <strong>Client:</strong>
+    {{ project.Client_Name }}
+</p>
+
+<p>
+    <strong>Description:</strong>
+    {{ project.Description }}
+</p>
+
+<p>
+    <strong>Status:</strong>
+    {{ project.Status }}
+</p>
+
+<p>
+    <strong>Start Date:</strong>
+    {{ project.Start_Date }}
+</p>
+
+<p>
+    <strong>End Date:</strong>
+    {{ project.End_Date|default:"Not Specified" }}
+</p>
+
+<hr>
+
+<h3>Project Manager</h3>
+
+{% if project.Project_Manager %}
+    <p>
+        <strong>Name:</strong>
+        {{ project.Project_Manager.Name }}
+    </p>
+
+    <p>
+        <strong>Employee ID:</strong>
+        {{ project.Project_Manager.Employee_id }}
+    </p>
+
+    <p>
+        <strong>Email:</strong>
+        {{ project.Project_Manager.Email|default:"Not provided" }}
+    </p>
+
+    <p>
+        <strong>Department:</strong>
+        {{ project.Project_Manager.Department }}
+    </p>
+
+    <p>
+        <a href="{% url 'employee_detail' project.Project_Manager.Employee_id %}">
+            View Manager Details
+        </a>
+    </p>
+{% else %}
+    <p>No project manager assigned.</p>
+{% endif %}
+
+<hr>
+
+<h3>Assigned Employees</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for employee in project.Employees.all %}
+        <tr>
+            <td>{{ employee.Employee_id }}</td>
+            <td>{{ employee.Name }}</td>
+            <td>{{ employee.get_Department_display }}</td>
+            <td>{{ employee.Designation }}</td>
+            <td>
+                <a href="{% url 'employee_detail' employee.Employee_id %}">
+                    View Employee
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No employees assigned to this project.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<hr>
+
+<a href="{% url 'projects' %}">Back to Projects</a>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <h3>
+        <ol>
+            <li>Total Employees: {{ emp }}</li>
+            <li>Active Employees: {{ active }}</li>
+            <li>Total Projects: {{ projects }}</li>
+            <li>Completed Projects: {{ completed }}</li>
+        </ol>
+    </h3>
+
+    <p>
+        <a href="{% url 'list' %}">View Employees</a>
+    </p>
+
+    <p>
+        <a href="{% url 'projects' %}">View Projects</a>
+    </p>
+
+    {% endblock %}
+

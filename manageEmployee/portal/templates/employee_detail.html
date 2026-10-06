@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Employee Details</h2>
+
+<p><strong>Employee ID:</strong> {{ employee.Employee_id }}</p>
+<p><strong>Name:</strong> {{ employee.Name }}</p>
+<p><strong>Email:</strong> {{ employee.Email|default:"Not provided" }}</p>
+<p><strong>Phone:</strong> {{ employee.Phone|default:"Not provided" }}</p>
+<p><strong>Department:</strong> {{ employee.get_Department_display }}</p>
+<p><strong>Designation:</strong> {{ employee.Designation }}</p>
+<p><strong>Date of Joining:</strong> {{ employee.Date_of_joining }}</p>
+<p><strong>Salary:</strong> {{ employee.Salary }}</p>
+
+<p>
+    <strong>Status:</strong>
+    {% if employee.is_Active %}
+        Active
+    {% else %}
+        Inactive
+    {% endif %}
+</p>
+
+<hr>
+
+<h2>Projects Assigned</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Client</th>
+            <th>Project Manager</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for project in projects %}
+        <tr>
+            <td>{{ project.Project_Name }}</td>
+            <td>{{ project.Client_Name }}</td>
+
+            <td>
+                {% if project.Project_Manager %}
+                    {{ project.Project_Manager.Name }}
+                {% else %}
+                    Not assigned
+                {% endif %}
+            </td>
+
+            <td>{{ project.get_Status_display }}</td>
+
+            <td>
+                <a href="{% url 'project_detail' project.id %}">
+                    View Project
+                </a>
+            </td>
+        </tr>
+
+        {% empty %}
+        <tr>
+            <td colspan="5">
+                No projects assigned to this employee.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br><hr>
+<a href="{% url 'list' %}">Back to Employees</a>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h2>Project List</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Project</th>
+            <th>Client</th>
+            <th>Manager</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for project in projects %}
+
+        <tr>
+            <td>{{ project.Project_Name }}</td>
+            <td>{{ project.Client_Name }}</td>
+            <td>{{ project.Project_Manager }}</td>
+            <td>{{ project.Status }}</td>
+
+            <td>
+                <a href="{% url 'project_detail' project.id %}">
+                    View
+                </a>
+            </td>
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="5">No projects found.</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<br>
+
+<a href="{% url 'home' %}">Back to Home</a>
+
+{% endblock %}
