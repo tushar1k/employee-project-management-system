@@ -1,22 +1,727 @@
-    {% extends 'base.html' %}
+{% extends 'base.html' %}
 
-    {% block content %}
-    <h3>
-        <ol>
-            <li>Total Employees: {{ emp }}</li>
-            <li>Active Employees: {{ active }}</li>
-            <li>Total Projects: {{ projects }}</li>
-            <li>Completed Projects: {{ completed }}</li>
-        </ol>
-    </h3>
+{% block title %}
+    Dashboard - Employee Project Management System
+{% endblock %}
 
-    <p>
-        <a href="{% url 'list' %}">View Employees</a>
-    </p>
 
-    <p>
-        <a href="{% url 'projects' %}">View Projects</a>
-    </p>
+{% block content %}
 
-    {% endblock %}
+<div class="space-y-8">
 
+
+    <!-- ========================================================= -->
+    <!-- PAGE HEADER -->
+    <!-- ========================================================= -->
+
+    <div class="flex flex-col sm:flex-row
+                sm:items-end
+                sm:justify-between
+                gap-4">
+
+        <div>
+
+            <p class="text-sm font-medium text-rose-700 mb-2">
+                Overview
+            </p>
+
+            <h1 class="text-3xl sm:text-4xl
+                       font-bold tracking-tight
+                       text-zinc-900">
+
+                Dashboard
+
+            </h1>
+
+            <p class="mt-2 text-sm sm:text-base text-zinc-500">
+
+                Monitor your employees and projects
+                from one place.
+
+            </p>
+
+        </div>
+
+
+        <!-- System Status -->
+
+        <div
+            class="inline-flex items-center gap-2
+                   px-3.5 py-2
+                   rounded-xl
+                   bg-white
+                   border border-zinc-200
+                   shadow-sm
+                   text-sm font-medium
+                   text-zinc-600">
+
+            <span
+                class="relative flex h-2.5 w-2.5">
+
+                <span
+                    class="absolute inline-flex
+                           h-full w-full
+                           rounded-full
+                           bg-emerald-400
+                           opacity-75
+                           animate-ping">
+                </span>
+
+                <span
+                    class="relative inline-flex
+                           h-2.5 w-2.5
+                           rounded-full
+                           bg-emerald-500">
+                </span>
+
+            </span>
+
+            System Operational
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- STATISTICS -->
+    <!-- ========================================================= -->
+
+    <div
+        class="grid grid-cols-1
+               sm:grid-cols-2
+               xl:grid-cols-4
+               gap-5">
+
+
+        <!-- TOTAL EMPLOYEES -->
+
+        <div
+            class="group
+                   bg-white
+                   rounded-2xl
+                   border border-zinc-200
+                   p-6
+                   shadow-sm
+                   hover:shadow-md
+                   hover:-translate-y-0.5
+                   transition-all duration-200">
+
+            <div class="flex items-start justify-between">
+
+                <div>
+
+                    <p
+                        class="text-sm font-medium
+                               text-zinc-500">
+
+                        Total Employees
+
+                    </p>
+
+                    <p
+                        class="mt-3
+                               text-3xl
+                               font-bold
+                               tracking-tight
+                               text-zinc-900">
+
+                        {{ emp }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- Icon -->
+
+                <div
+                    class="w-11 h-11
+                           rounded-xl
+                           bg-rose-50
+                           border border-rose-100
+                           flex items-center
+                           justify-center">
+
+                    <svg
+                        class="w-5 h-5 text-rose-700"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M16 21v-2a4 4 0 00-4-4H6
+                               a4 4 0 00-4 4v2
+                               M9 11a4 4 0 100-8
+                               4 4 0 000 8
+                               M22 21v-2a4 4 0 00-3-3.87
+                               M16 3.13a4 4 0 010 7.75"/>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+            <div
+                class="mt-5
+                       pt-4
+                       border-t border-zinc-100
+                       text-xs text-zinc-400">
+
+                Employees registered in the system
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIVE EMPLOYEES -->
+
+        <div
+            class="group
+                   bg-white
+                   rounded-2xl
+                   border border-zinc-200
+                   p-6
+                   shadow-sm
+                   hover:shadow-md
+                   hover:-translate-y-0.5
+                   transition-all duration-200">
+
+            <div class="flex items-start justify-between">
+
+                <div>
+
+                    <p
+                        class="text-sm font-medium
+                               text-zinc-500">
+
+                        Active Employees
+
+                    </p>
+
+                    <p
+                        class="mt-3
+                               text-3xl
+                               font-bold
+                               tracking-tight
+                               text-zinc-900">
+
+                        {{ active }}
+
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="w-11 h-11
+                           rounded-xl
+                           bg-emerald-50
+                           border border-emerald-100
+                           flex items-center
+                           justify-center">
+
+                    <svg
+                        class="w-5 h-5 text-emerald-600"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M5 13l4 4L19 7"/>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+            <div
+                class="mt-5
+                       pt-4
+                       border-t border-zinc-100
+                       text-xs text-zinc-400">
+
+                Currently active employees
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL PROJECTS -->
+
+        <div
+            class="group
+                   bg-white
+                   rounded-2xl
+                   border border-zinc-200
+                   p-6
+                   shadow-sm
+                   hover:shadow-md
+                   hover:-translate-y-0.5
+                   transition-all duration-200">
+
+            <div class="flex items-start justify-between">
+
+                <div>
+
+                    <p
+                        class="text-sm font-medium
+                               text-zinc-500">
+
+                        Total Projects
+
+                    </p>
+
+                    <p
+                        class="mt-3
+                               text-3xl
+                               font-bold
+                               tracking-tight
+                               text-zinc-900">
+
+                        {{ projects }}
+
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="w-11 h-11
+                           rounded-xl
+                           bg-amber-50
+                           border border-amber-100
+                           flex items-center
+                           justify-center">
+
+                    <svg
+                        class="w-5 h-5 text-amber-600"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 7a2 2 0 012-2h5l2 2h7
+                               a2 2 0 012 2v10
+                               a2 2 0 01-2 2H5
+                               a2 2 0 01-2-2V7z"/>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+            <div
+                class="mt-5
+                       pt-4
+                       border-t border-zinc-100
+                       text-xs text-zinc-400">
+
+                Projects currently registered
+
+            </div>
+
+        </div>
+
+
+        <!-- COMPLETED PROJECTS -->
+
+        <div
+            class="group
+                   bg-white
+                   rounded-2xl
+                   border border-zinc-200
+                   p-6
+                   shadow-sm
+                   hover:shadow-md
+                   hover:-translate-y-0.5
+                   transition-all duration-200">
+
+            <div class="flex items-start justify-between">
+
+                <div>
+
+                    <p
+                        class="text-sm font-medium
+                               text-zinc-500">
+
+                        Completed Projects
+
+                    </p>
+
+                    <p
+                        class="mt-3
+                               text-3xl
+                               font-bold
+                               tracking-tight
+                               text-zinc-900">
+
+                        {{ completed }}
+
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="w-11 h-11
+                           rounded-xl
+                           bg-zinc-100
+                           border border-zinc-200
+                           flex items-center
+                           justify-center">
+
+                    <svg
+                        class="w-5 h-5 text-zinc-700"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 12l2 2 4-4
+                               M21 12a9 9 0 11-18 0
+                               9 9 0 0118 0z"/>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+            <div
+                class="mt-5
+                       pt-4
+                       border-t border-zinc-100
+                       text-xs text-zinc-400">
+
+                Projects successfully completed
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- QUICK ACCESS -->
+    <!-- ========================================================= -->
+
+    <div
+        class="bg-white
+               rounded-2xl
+               border border-zinc-200
+               shadow-sm
+               overflow-hidden">
+
+
+        <!-- Header -->
+
+        <div
+            class="px-6 py-5
+                   border-b border-zinc-200">
+
+            <h2
+                class="text-lg
+                       font-bold
+                       text-zinc-900">
+
+                Quick Access
+
+            </h2>
+
+            <p
+                class="mt-1
+                       text-sm
+                       text-zinc-500">
+
+                Navigate quickly to the areas you use most.
+
+            </p>
+
+        </div>
+
+
+        <!-- Links -->
+
+        <div
+            class="grid grid-cols-1
+                   md:grid-cols-2
+                   gap-4
+                   p-6">
+
+
+            <!-- Employees -->
+
+            <a
+                href="{% url 'list' %}"
+                class="group
+                       flex items-center
+                       justify-between
+                       p-5
+                       rounded-xl
+                       border border-zinc-200
+                       bg-zinc-50
+                       hover:bg-rose-50
+                       hover:border-rose-200
+                       transition-all duration-200">
+
+
+                <div class="flex items-center gap-4">
+
+                    <div
+                        class="w-11 h-11
+                               rounded-xl
+                               bg-rose-100
+                               flex items-center
+                               justify-center">
+
+                        <svg
+                            class="w-5 h-5 text-rose-700"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M16 21v-2a4 4 0 00-4-4H6
+                                   a4 4 0 00-4 4v2
+                                   M9 11a4 4 0 100-8
+                                   4 4 0 000 8
+                                   M22 21v-2a4 4 0 00-3-3.87
+                                   M16 3.13a4 4 0 010 7.75"/>
+
+                        </svg>
+
+                    </div>
+
+
+                    <div>
+
+                        <h3
+                            class="font-semibold
+                                   text-zinc-900
+                                   group-hover:text-rose-700">
+
+                            Employees
+
+                        </h3>
+
+                        <p
+                            class="text-xs
+                                   text-zinc-500
+                                   mt-1">
+
+                            View and manage employees
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <svg
+                    class="w-5 h-5
+                           text-zinc-400
+                           group-hover:text-rose-700
+                           group-hover:translate-x-1
+                           transition-all"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24">
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 5l7 7-7 7"/>
+
+                </svg>
+
+            </a>
+
+
+            <!-- Projects -->
+
+            <a
+                href="{% url 'projects' %}"
+                class="group
+                       flex items-center
+                       justify-between
+                       p-5
+                       rounded-xl
+                       border border-zinc-200
+                       bg-zinc-50
+                       hover:bg-rose-50
+                       hover:border-rose-200
+                       transition-all duration-200">
+
+
+                <div class="flex items-center gap-4">
+
+                    <div
+                        class="w-11 h-11
+                               rounded-xl
+                               bg-amber-100
+                               flex items-center
+                               justify-center">
+
+                        <svg
+                            class="w-5 h-5 text-amber-700"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 7a2 2 0 012-2h5l2 2h7
+                                   a2 2 0 012 2v10
+                                   a2 2 0 01-2 2H5
+                                   a2 2 0 01-2-2V7z"/>
+
+                        </svg>
+
+                    </div>
+
+
+                    <div>
+
+                        <h3
+                            class="font-semibold
+                                   text-zinc-900
+                                   group-hover:text-rose-700">
+
+                            Projects
+
+                        </h3>
+
+                        <p
+                            class="text-xs
+                                   text-zinc-500
+                                   mt-1">
+
+                            View and manage projects
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <svg
+                    class="w-5 h-5
+                           text-zinc-400
+                           group-hover:text-rose-700
+                           group-hover:translate-x-1
+                           transition-all"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24">
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 5l7 7-7 7"/>
+
+                </svg>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- SUMMARY -->
+    <!-- ========================================================= -->
+
+    <div
+        class="relative overflow-hidden
+               rounded-2xl
+               bg-gradient-to-r
+               from-zinc-900
+               via-zinc-900
+               to-rose-950
+               p-6 sm:p-8
+               shadow-lg">
+
+
+        <!-- Decorative Circle -->
+
+        <div
+            class="absolute -right-16 -top-20
+                   w-56 h-56
+                   rounded-full
+                   bg-rose-700/20
+                   blur-2xl">
+        </div>
+
+
+        <div class="relative z-10">
+
+            <p
+                class="text-xs
+                       font-semibold
+                       uppercase
+                       tracking-widest
+                       text-rose-400">
+
+                Employee Project Management
+
+            </p>
+
+            <h2
+                class="mt-2
+                       text-xl sm:text-2xl
+                       font-bold
+                       text-white">
+
+                Everything you need in one workspace.
+
+            </h2>
+
+            <p
+                class="mt-2
+                       max-w-2xl
+                       text-sm
+                       text-zinc-400">
+
+                Manage your workforce, track projects,
+                monitor progress, and keep your organization
+                running efficiently.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Employee, Project
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -24,6 +25,8 @@ def list(request):
 
     if department:
         employee_list = employee_list.filter(Department = department)
+
+    
 
     context = {
         'employees' : employee_list,

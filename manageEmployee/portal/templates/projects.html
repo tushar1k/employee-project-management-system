@@ -1,51 +1,652 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
-<h2>Project List</h2>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-<table>
-    <thead>
-        <tr>
-            <th>Project</th>
-            <th>Client</th>
-            <th>Manager</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
+    <!-- ========================================================= -->
+    <!-- PAGE HEADER -->
+    <!-- ========================================================= -->
 
-    <tbody>
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
 
-        {% for project in projects %}
+        <div>
 
-        <tr>
-            <td>{{ project.Project_Name }}</td>
-            <td>{{ project.Client_Name }}</td>
-            <td>{{ project.Project_Manager }}</td>
-            <td>{{ project.Status }}</td>
+            <div class="flex items-center gap-2 mb-2">
 
-            <td>
-                <a href="{% url 'project_detail' project.id %}">
-                    View
-                </a>
-            </td>
-        </tr>
+                <span class="w-2 h-2 rounded-full bg-rose-700"></span>
 
-        {% empty %}
+                <p class="text-xs font-bold uppercase tracking-[0.18em] text-rose-700">
+                    Project Management
+                </p>
 
-        <tr>
-            <td colspan="5">No projects found.</td>
-        </tr>
+            </div>
 
-        {% endfor %}
+            <h1 class="text-3xl sm:text-4xl font-bold text-zinc-900 tracking-tight">
+                Project List
+            </h1>
 
-    </tbody>
-</table>
+            <p class="mt-2 text-sm text-zinc-500">
+                View and manage all projects across your organization.
+            </p>
 
-<br>
+        </div>
 
-<a href="{% url 'home' %}">Back to Home</a>
+
+        <!-- Project Count -->
+
+        <div
+            class="inline-flex items-center gap-3
+                   bg-white
+                   border border-zinc-200
+                   rounded-xl
+                   px-4 py-3
+                   shadow-sm">
+
+            <div
+                class="w-9 h-9
+                       rounded-lg
+                       bg-rose-50
+                       border border-rose-100
+                       flex items-center
+                       justify-center">
+
+                <svg
+                    class="w-4 h-4 text-rose-700"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    viewBox="0 0 24 24">
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5v-9z" />
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 7.5l9 4.5 9-4.5
+                           M12 12v9" />
+
+                </svg>
+
+            </div>
+
+            <div>
+
+                <p class="text-xs text-zinc-400 font-medium">
+                    Total Projects
+                </p>
+
+                <p class="text-lg font-bold text-zinc-900">
+                    {{ projects|length }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- PROJECT TABLE -->
+    <!-- ========================================================= -->
+
+    <div
+        class="bg-white
+               rounded-2xl
+               border border-zinc-200
+               shadow-sm
+               overflow-hidden">
+
+
+        <!-- Table Header -->
+
+        <div
+            class="px-5 sm:px-6
+                   py-5
+                   border-b border-zinc-200
+                   flex flex-col
+                   sm:flex-row
+                   sm:items-center
+                   sm:justify-between
+                   gap-3">
+
+            <div>
+
+                <h2 class="text-base font-bold text-zinc-900">
+                    Projects
+                </h2>
+
+                <p class="text-xs text-zinc-400 mt-1">
+                    Project portfolio and current status
+                </p>
+
+            </div>
+
+
+            <!-- Status Indicator -->
+
+            <div
+                class="inline-flex
+                       items-center
+                       gap-2
+                       text-xs
+                       font-semibold
+                       text-zinc-500">
+
+                <span
+                    class="w-2 h-2
+                           rounded-full
+                           bg-rose-600">
+                </span>
+
+                Project Portfolio
+
+            </div>
+
+        </div>
+
+
+        <!-- Responsive Table -->
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full min-w-[800px]">
+
+                <thead>
+
+                    <tr class="bg-zinc-50/80">
+
+                        <th
+                            class="px-6 py-4
+                                   text-left
+                                   text-[11px]
+                                   font-bold
+                                   uppercase
+                                   tracking-wider
+                                   text-zinc-400">
+
+                            Project
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-left
+                                   text-[11px]
+                                   font-bold
+                                   uppercase
+                                   tracking-wider
+                                   text-zinc-400">
+
+                            Client
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-left
+                                   text-[11px]
+                                   font-bold
+                                   uppercase
+                                   tracking-wider
+                                   text-zinc-400">
+
+                            Manager
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-left
+                                   text-[11px]
+                                   font-bold
+                                   uppercase
+                                   tracking-wider
+                                   text-zinc-400">
+
+                            Status
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-right
+                                   text-[11px]
+                                   font-bold
+                                   uppercase
+                                   tracking-wider
+                                   text-zinc-400">
+
+                            Action
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody class="divide-y divide-zinc-100">
+
+
+                    {% for project in projects %}
+
+
+                    <!-- ================================================= -->
+                    <!-- PROJECT ROW -->
+                    <!-- ================================================= -->
+
+                    <tr
+                        class="group
+                               hover:bg-rose-50/30
+                               transition-colors
+                               duration-200">
+
+
+                        <!-- Project -->
+
+                        <td class="px-6 py-5">
+
+                            <div class="flex items-center gap-3">
+
+                                <div
+                                    class="w-10 h-10
+                                           shrink-0
+                                           rounded-xl
+                                           bg-gradient-to-br
+                                           from-rose-700
+                                           to-red-600
+                                           text-white
+                                           flex items-center
+                                           justify-center
+                                           shadow-sm">
+
+                                    <svg
+                                        class="w-5 h-5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.7"
+                                        viewBox="0 0 24 24">
+
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5v-9z" />
+
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M3 7.5l9 4.5 9-4.5
+                                               M12 12v9" />
+
+                                    </svg>
+
+                                </div>
+
+
+                                <div>
+
+                                    <p
+                                        class="text-sm
+                                               font-bold
+                                               text-zinc-900
+                                               group-hover:text-rose-700
+                                               transition-colors">
+
+                                        {{ project.Project_Name }}
+
+                                    </p>
+
+                                    <p
+                                        class="text-xs
+                                               text-zinc-400
+                                               mt-0.5">
+
+                                        Project ID: {{ project.id }}
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- Client -->
+
+                        <td class="px-6 py-5">
+
+                            <div class="flex items-center gap-2">
+
+                                <div
+                                    class="w-7 h-7
+                                           rounded-lg
+                                           bg-zinc-100
+                                           flex items-center
+                                           justify-center">
+
+                                    <svg
+                                        class="w-3.5 h-3.5 text-zinc-500"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        viewBox="0 0 24 24">
+
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M3 21h18
+                                               M5 21V5
+                                               l7-3 7 3v16
+                                               M9 9h1
+                                               M14 9h1
+                                               M9 13h1
+                                               M14 13h1" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span
+                                    class="text-sm
+                                           font-medium
+                                           text-zinc-700">
+
+                                    {{ project.Client_Name }}
+
+                                </span>
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- Manager -->
+
+                        <td class="px-6 py-5">
+
+                            {% if project.Project_Manager %}
+
+                            <div class="flex items-center gap-2.5">
+
+                                <div
+                                    class="w-8 h-8
+                                           rounded-lg
+                                           bg-rose-50
+                                           border border-rose-100
+                                           text-rose-700
+                                           flex items-center
+                                           justify-center
+                                           text-xs
+                                           font-bold">
+
+                                    {{ project.Project_Manager.Name|first|upper }}
+
+                                </div>
+
+                                <span
+                                    class="text-sm
+                                           font-medium
+                                           text-zinc-700">
+
+                                    {{ project.Project_Manager.Name }}
+
+                                </span>
+
+                            </div>
+
+                            {% else %}
+
+                            <span
+                                class="inline-flex
+                                       items-center
+                                       gap-1.5
+                                       text-xs
+                                       font-medium
+                                       text-zinc-400">
+
+                                <span
+                                    class="w-1.5 h-1.5
+                                           rounded-full
+                                           bg-zinc-300">
+                                </span>
+
+                                Not Assigned
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Status -->
+
+                        <td class="px-6 py-5">
+
+                            <span
+                                class="inline-flex
+                                       items-center
+                                       gap-1.5
+                                       rounded-full
+                                       bg-rose-50
+                                       border border-rose-100
+                                       px-3 py-1
+                                       text-xs
+                                       font-bold
+                                       text-rose-700">
+
+                                <span
+                                    class="w-1.5 h-1.5
+                                           rounded-full
+                                           bg-rose-600">
+                                </span>
+
+                                {{ project.Status }}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- Action -->
+
+                        <td class="px-6 py-5 text-right">
+
+                            <a
+                                href="{% url 'project_detail' project.id %}"
+                                class="inline-flex
+                                       items-center
+                                       gap-2
+                                       rounded-lg
+                                       border border-zinc-200
+                                       bg-white
+                                       px-3 py-2
+                                       text-xs
+                                       font-bold
+                                       text-zinc-600
+                                       shadow-sm
+                                       hover:border-rose-200
+                                       hover:bg-rose-50
+                                       hover:text-rose-700
+                                       transition-all
+                                       duration-200">
+
+                                View Details
+
+                                <svg
+                                    class="w-3.5 h-3.5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24">
+
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M9 5l7 7-7 7" />
+
+                                </svg>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+
+                    <!-- ================================================= -->
+                    <!-- EMPTY STATE -->
+                    <!-- ================================================= -->
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="px-6 py-16">
+
+                            <div
+                                class="flex flex-col
+                                       items-center
+                                       justify-center
+                                       text-center">
+
+
+                                <div
+                                    class="w-16 h-16
+                                           rounded-2xl
+                                           bg-zinc-100
+                                           flex items-center
+                                           justify-center
+                                           mb-4">
+
+                                    <svg
+                                        class="w-7 h-7 text-zinc-400"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.6"
+                                        viewBox="0 0 24 24">
+
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5v-9z" />
+
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M3 7.5l9 4.5 9-4.5" />
+
+                                    </svg>
+
+                                </div>
+
+
+                                <h3
+                                    class="text-sm
+                                           font-bold
+                                           text-zinc-900">
+
+                                    No projects found
+
+                                </h3>
+
+
+                                <p
+                                    class="mt-1
+                                           max-w-sm
+                                           text-xs
+                                           text-zinc-400">
+
+                                    There are currently no projects
+                                    available in the system.
+
+                                </p>
+
+
+                                <a
+                                    href="{% url 'home' %}"
+                                    class="mt-5
+                                           inline-flex
+                                           items-center
+                                           gap-2
+                                           rounded-lg
+                                           bg-rose-700
+                                           px-4 py-2.5
+                                           text-xs
+                                           font-bold
+                                           text-white
+                                           hover:bg-rose-800
+                                           transition-colors">
+
+                                    Back to Dashboard
+
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- BACK TO HOME -->
+    <!-- ========================================================= -->
+
+    <div class="mt-6">
+
+        <a
+            href="{% url 'home' %}"
+            class="inline-flex
+                   items-center
+                   gap-2
+                   text-sm
+                   font-semibold
+                   text-zinc-500
+                   hover:text-rose-700
+                   transition-colors">
+
+            <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewBox="0 0 24 24">
+
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19 12H5
+                       M12 19l-7-7 7-7" />
+
+            </svg>
+
+            Back to Home
+
+        </a>
+
+    </div>
+
+</div>
 
 {% endblock %}

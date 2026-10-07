@@ -1,75 +1,937 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    {{ employee.Name }} - Employee Details
+{% endblock %}
+
+
 {% block content %}
 
-<h2>Employee Details</h2>
+<div class="space-y-8">
 
-<p><strong>Employee ID:</strong> {{ employee.Employee_id }}</p>
-<p><strong>Name:</strong> {{ employee.Name }}</p>
-<p><strong>Email:</strong> {{ employee.Email|default:"Not provided" }}</p>
-<p><strong>Phone:</strong> {{ employee.Phone|default:"Not provided" }}</p>
-<p><strong>Department:</strong> {{ employee.get_Department_display }}</p>
-<p><strong>Designation:</strong> {{ employee.Designation }}</p>
-<p><strong>Date of Joining:</strong> {{ employee.Date_of_joining }}</p>
-<p><strong>Salary:</strong> {{ employee.Salary }}</p>
 
-<p>
-    <strong>Status:</strong>
-    {% if employee.is_Active %}
-        Active
-    {% else %}
-        Inactive
-    {% endif %}
-</p>
+    <!-- ========================================================= -->
+    <!-- PAGE HEADER -->
+    <!-- ========================================================= -->
 
-<hr>
+    <div class="flex flex-col sm:flex-row
+                sm:items-center
+                sm:justify-between
+                gap-4">
 
-<h2>Projects Assigned</h2>
+        <div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Project Name</th>
-            <th>Client</th>
-            <th>Project Manager</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
+            <div class="flex items-center gap-2
+                        text-sm text-zinc-400 mb-2">
 
-    <tbody>
-        {% for project in projects %}
-        <tr>
-            <td>{{ project.Project_Name }}</td>
-            <td>{{ project.Client_Name }}</td>
+                <a
+                    href="{% url 'list' %}"
+                    class="hover:text-rose-700 transition-colors">
 
-            <td>
-                {% if project.Project_Manager %}
-                    {{ project.Project_Manager.Name }}
-                {% else %}
-                    Not assigned
-                {% endif %}
-            </td>
+                    Employees
 
-            <td>{{ project.get_Status_display }}</td>
-
-            <td>
-                <a href="{% url 'project_detail' project.id %}">
-                    View Project
                 </a>
-            </td>
-        </tr>
 
-        {% empty %}
-        <tr>
-            <td colspan="5">
-                No projects assigned to this employee.
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                <span>/</span>
 
-<br><hr>
-<a href="{% url 'list' %}">Back to Employees</a>
+                <span class="text-zinc-500">
+                    Employee Details
+                </span>
+
+            </div>
+
+            <h1 class="text-3xl font-bold tracking-tight text-zinc-900">
+                Employee Details
+            </h1>
+
+            <p class="mt-1 text-sm text-zinc-500">
+                View employee information and assigned projects.
+            </p>
+
+        </div>
+
+
+        <!-- Back Button -->
+
+        <a
+            href="{% url 'list' %}"
+            class="inline-flex items-center justify-center
+                   gap-2
+                   px-4 py-2.5
+                   rounded-xl
+                   border border-zinc-200
+                   bg-white
+                   text-sm font-semibold
+                   text-zinc-600
+                   hover:bg-zinc-50
+                   hover:text-rose-700
+                   hover:border-rose-200
+                   transition-all duration-200
+                   shadow-sm">
+
+            <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24">
+
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 19l-7-7 7-7"/>
+
+            </svg>
+
+            Back to Employees
+
+        </a>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- EMPLOYEE PROFILE CARD -->
+    <!-- ========================================================= -->
+
+    <div
+        class="bg-white
+               border border-zinc-200
+               rounded-2xl
+               shadow-sm
+               overflow-hidden">
+
+
+        <!-- Profile Header -->
+
+        <div
+            class="px-6 py-6 sm:px-8
+                   bg-gradient-to-r
+                   from-rose-50
+                   via-white
+                   to-zinc-50
+                   border-b border-zinc-200">
+
+            <div class="flex items-center gap-4">
+
+
+                <!-- Avatar -->
+
+                <div
+                    class="w-16 h-16
+                           rounded-2xl
+                           bg-gradient-to-br
+                           from-rose-700
+                           to-red-600
+                           flex items-center
+                           justify-center
+                           text-white
+                           text-xl
+                           font-bold
+                           shadow-lg
+                           shadow-rose-700/20">
+
+                    {{ employee.Name|first|upper }}
+
+                </div>
+
+
+                <!-- Employee Name -->
+
+                <div>
+
+                    <h2 class="text-xl font-bold text-zinc-900">
+
+                        {{ employee.Name }}
+
+                    </h2>
+
+                    <p class="text-sm text-zinc-500 mt-1">
+
+                        {{ employee.Designation }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- Status -->
+
+                <div class="ml-auto">
+
+                    {% if employee.is_Active %}
+
+                        <span
+                            class="inline-flex items-center
+                                   gap-2
+                                   px-3 py-1.5
+                                   rounded-full
+                                   bg-emerald-50
+                                   border border-emerald-200
+                                   text-xs font-semibold
+                                   text-emerald-700">
+
+                            <span
+                                class="w-2 h-2
+                                       rounded-full
+                                       bg-emerald-500">
+                            </span>
+
+                            Active
+
+                        </span>
+
+                    {% else %}
+
+                        <span
+                            class="inline-flex items-center
+                                   gap-2
+                                   px-3 py-1.5
+                                   rounded-full
+                                   bg-zinc-100
+                                   border border-zinc-200
+                                   text-xs font-semibold
+                                   text-zinc-500">
+
+                            <span
+                                class="w-2 h-2
+                                       rounded-full
+                                       bg-zinc-400">
+                            </span>
+
+                            Inactive
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Employee Information -->
+
+        <div class="p-6 sm:p-8">
+
+            <div
+                class="grid grid-cols-1
+                       sm:grid-cols-2
+                       lg:grid-cols-3
+                       gap-6">
+
+
+                <!-- Employee ID -->
+
+                <div
+                    class="p-4
+                           rounded-xl
+                           bg-zinc-50
+                           border border-zinc-100">
+
+                    <p class="text-xs font-medium
+                              uppercase tracking-wider
+                              text-zinc-400">
+
+                        Employee ID
+
+                    </p>
+
+                    <p class="mt-2 text-sm
+                              font-semibold
+                              text-zinc-900">
+
+                        {{ employee.Employee_id }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- Name -->
+
+                <div
+                    class="p-4
+                           rounded-xl
+                           bg-zinc-50
+                           border border-zinc-100">
+
+                    <p class="text-xs font-medium
+                              uppercase tracking-wider
+                              text-zinc-400">
+
+                        Name
+
+                    </p>
+
+                    <p class="mt-2 text-sm
+                              font-semibold
+                              text-zinc-900">
+
+                        {{ employee.Name }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div
+                    class="p-4
+                           rounded-xl
+                           bg-zinc-50
+                           border border-zinc-100">
+
+                    <p class="text-xs font-medium
+                              uppercase tracking-wider
+                              text-zinc-400">
+
+                        Email
+
+                    </p>
+
+                    <p class="mt-2 text-sm
+                              font-semibold
+                              text-zinc-900
+                              break-all">
+
+                        {{ employee.Email|default:"Not provided" }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- Phone -->
+
+                <div
+                    class="p-4
+                           rounded-xl
+                           bg-zinc-50
+                           border border-zinc-100">
+
+                    <p class="text-xs font-medium
+                              uppercase tracking-wider
+                              text-zinc-400">
+
+                        Phone
+
+                    </p>
+
+                    <p class="mt-2 text-sm
+                              font-semibold
+                              text-zinc-900">
+
+                        {{ employee.Phone|default:"Not provided" }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- Department -->
+
+                <div
+                    class="p-4
+                           rounded-xl
+                           bg-zinc-50
+                           border border-zinc-100">
+
+                    <p class="text-xs font-medium
+                              uppercase tracking-wider
+                              text-zinc-400">
+
+                        Department
+
+                    </p>
+
+                    <p class="mt-2 text-sm
+                              font-semibold
+                              text-zinc-900">
+
+                        {{ employee.get_Department_display }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- Designation -->
+
+                <div
+                    class="p-4
+                           rounded-xl
+                           bg-zinc-50
+                           border border-zinc-100">
+
+                    <p class="text-xs font-medium
+                              uppercase tracking-wider
+                              text-zinc-400">
+
+                        Designation
+
+                    </p>
+
+                    <p class="mt-2 text-sm
+                              font-semibold
+                              text-zinc-900">
+
+                        {{ employee.Designation }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- Date of Joining -->
+
+                <div
+                    class="p-4
+                           rounded-xl
+                           bg-zinc-50
+                           border border-zinc-100">
+
+                    <p class="text-xs font-medium
+                              uppercase tracking-wider
+                              text-zinc-400">
+
+                        Date of Joining
+
+                    </p>
+
+                    <p class="mt-2 text-sm
+                              font-semibold
+                              text-zinc-900">
+
+                        {{ employee.Date_of_joining }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- Salary -->
+
+                <div
+                    class="p-4
+                           rounded-xl
+                           bg-zinc-50
+                           border border-zinc-100">
+
+                    <p class="text-xs font-medium
+                              uppercase tracking-wider
+                              text-zinc-400">
+
+                        Salary
+
+                    </p>
+
+                    <p class="mt-2 text-sm
+                              font-bold
+                              text-rose-700">
+
+                        ₹{{ employee.Salary }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- Status -->
+
+                <div
+                    class="p-4
+                           rounded-xl
+                           bg-zinc-50
+                           border border-zinc-100">
+
+                    <p class="text-xs font-medium
+                              uppercase tracking-wider
+                              text-zinc-400">
+
+                        Status
+
+                    </p>
+
+                    <div class="mt-2">
+
+                        {% if employee.is_Active %}
+
+                            <span
+                                class="inline-flex
+                                       items-center gap-1.5
+                                       text-sm font-semibold
+                                       text-emerald-600">
+
+                                <span
+                                    class="w-2 h-2
+                                           rounded-full
+                                           bg-emerald-500">
+                                </span>
+
+                                Active
+
+                            </span>
+
+                        {% else %}
+
+                            <span
+                                class="inline-flex
+                                       items-center gap-1.5
+                                       text-sm font-semibold
+                                       text-zinc-500">
+
+                                <span
+                                    class="w-2 h-2
+                                           rounded-full
+                                           bg-zinc-400">
+                                </span>
+
+                                Inactive
+
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- PROJECTS SECTION -->
+    <!-- ========================================================= -->
+
+    <div
+        class="bg-white
+               border border-zinc-200
+               rounded-2xl
+               shadow-sm
+               overflow-hidden">
+
+
+        <!-- Section Header -->
+
+        <div
+            class="px-6 py-5 sm:px-8
+                   border-b border-zinc-200
+                   flex flex-col sm:flex-row
+                   sm:items-center
+                   sm:justify-between
+                   gap-3">
+
+            <div>
+
+                <h2 class="text-lg font-bold text-zinc-900">
+
+                    Projects Assigned
+
+                </h2>
+
+                <p class="text-sm text-zinc-500 mt-1">
+
+                    Projects currently assigned to {{ employee.Name }}.
+
+                </p>
+
+            </div>
+
+
+            <!-- Project Count -->
+
+            <span
+                class="inline-flex items-center
+                       justify-center
+                       px-3 py-1.5
+                       rounded-lg
+                       bg-rose-50
+                       border border-rose-100
+                       text-xs font-semibold
+                       text-rose-700">
+
+                {{ projects|length }} Project{{ projects|length|pluralize }}
+
+            </span>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- PROJECT TABLE -->
+        <!-- ===================================================== -->
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full text-left">
+
+
+                <!-- Table Head -->
+
+                <thead
+                    class="bg-zinc-50
+                           border-b border-zinc-200">
+
+                    <tr>
+
+                        <th
+                            class="px-6 py-4
+                                   text-xs font-semibold
+                                   uppercase tracking-wider
+                                   text-zinc-500">
+
+                            Project Name
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-xs font-semibold
+                                   uppercase tracking-wider
+                                   text-zinc-500">
+
+                            Client
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-xs font-semibold
+                                   uppercase tracking-wider
+                                   text-zinc-500">
+
+                            Project Manager
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-xs font-semibold
+                                   uppercase tracking-wider
+                                   text-zinc-500">
+
+                            Status
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-xs font-semibold
+                                   uppercase tracking-wider
+                                   text-zinc-500">
+
+                            Action
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <!-- Table Body -->
+
+                <tbody class="divide-y divide-zinc-100">
+
+
+                    {% for project in projects %}
+
+                    <tr
+                        class="group
+                               hover:bg-rose-50/40
+                               transition-colors duration-150">
+
+
+                        <!-- Project Name -->
+
+                        <td class="px-6 py-4">
+
+                            <div
+                                class="font-semibold
+                                       text-zinc-900
+                                       group-hover:text-rose-700
+                                       transition-colors">
+
+                                {{ project.Project_Name }}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- Client -->
+
+                        <td
+                            class="px-6 py-4
+                                   text-sm
+                                   text-zinc-600">
+
+                            {{ project.Client_Name }}
+
+                        </td>
+
+
+                        <!-- Project Manager -->
+
+                        <td class="px-6 py-4">
+
+                            {% if project.Project_Manager %}
+
+                                <div
+                                    class="flex items-center gap-2">
+
+                                    <div
+                                        class="w-8 h-8
+                                               rounded-lg
+                                               bg-zinc-800
+                                               flex items-center
+                                               justify-center
+                                               text-[10px]
+                                               font-bold
+                                               text-white">
+
+                                        {{ project.Project_Manager.Name|first|upper }}
+
+                                    </div>
+
+                                    <span
+                                        class="text-sm
+                                               font-medium
+                                               text-zinc-700">
+
+                                        {{ project.Project_Manager.Name }}
+
+                                    </span>
+
+                                </div>
+
+                            {% else %}
+
+                                <span
+                                    class="text-sm
+                                           text-zinc-400
+                                           italic">
+
+                                    Not assigned
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Status -->
+
+                        <td class="px-6 py-4">
+
+                            {% if project.Status == "Completed" %}
+
+                                <span
+                                    class="inline-flex
+                                           items-center
+                                           px-2.5 py-1
+                                           rounded-full
+                                           bg-emerald-50
+                                           border border-emerald-200
+                                           text-xs font-semibold
+                                           text-emerald-700">
+
+                                    Completed
+
+                                </span>
+
+                            {% elif project.Status == "In Progress" %}
+
+                                <span
+                                    class="inline-flex
+                                           items-center
+                                           px-2.5 py-1
+                                           rounded-full
+                                           bg-amber-50
+                                           border border-amber-200
+                                           text-xs font-semibold
+                                           text-amber-700">
+
+                                    In Progress
+
+                                </span>
+
+                            {% else %}
+
+                                <span
+                                    class="inline-flex
+                                           items-center
+                                           px-2.5 py-1
+                                           rounded-full
+                                           bg-zinc-100
+                                           border border-zinc-200
+                                           text-xs font-semibold
+                                           text-zinc-600">
+
+                                    {{ project.get_Status_display }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Action -->
+
+                        <td class="px-6 py-4">
+
+                            <a
+                                href="{% url 'project_detail' project.id %}"
+                                class="inline-flex
+                                       items-center gap-1.5
+                                       text-sm font-semibold
+                                       text-rose-700
+                                       hover:text-rose-900
+                                       transition-colors">
+
+                                View Project
+
+                                <svg
+                                    class="w-4 h-4
+                                           group-hover:translate-x-0.5
+                                           transition-transform"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24">
+
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M9 5l7 7-7 7"/>
+
+                                </svg>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+                    <!-- Empty State -->
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="px-6 py-16
+                                   text-center">
+
+                            <div
+                                class="mx-auto
+                                       w-14 h-14
+                                       rounded-2xl
+                                       bg-zinc-100
+                                       flex items-center
+                                       justify-center">
+
+                                <svg
+                                    class="w-7 h-7
+                                           text-zinc-400"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                    viewBox="0 0 24 24">
+
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M3 7a2 2 0 012-2h5l2 2h7
+                                           a2 2 0 012 2v10
+                                           a2 2 0 01-2 2H5
+                                           a2 2 0 01-2-2V7z"/>
+
+                                </svg>
+
+                            </div>
+
+                            <h3
+                                class="mt-4
+                                       text-sm
+                                       font-semibold
+                                       text-zinc-800">
+
+                                No Projects Assigned
+
+                            </h3>
+
+                            <p
+                                class="mt-1
+                                       text-sm
+                                       text-zinc-400">
+
+                                This employee currently has no assigned projects.
+
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- BOTTOM NAVIGATION -->
+    <!-- ========================================================= -->
+
+    <div class="flex items-center">
+
+        <a
+            href="{% url 'list' %}"
+            class="inline-flex items-center gap-2
+                   text-sm font-semibold
+                   text-zinc-500
+                   hover:text-rose-700
+                   transition-colors">
+
+            <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24">
+
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 19l-7-7 7-7"/>
+
+            </svg>
+
+            Back to Employees
+
+        </a>
+
+    </div>
+
+
+</div>
+
 {% endblock %}

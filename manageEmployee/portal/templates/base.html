@@ -1,24 +1,475 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Project Management System</title>
-</head>
-<body>
-    <h1>Employee Project Management System</h1>
-    <nav>
-    <a href="{% url 'home' %}">Home</a> |
-    <a href="{% url 'list' %}">Employees</a> |
-    <a href="{% url 'projects' %}">Projects</a> |
-    <a href="admin/">Admin</a>
-    </nav>
-    
-    <hr>
 
-    
-    {% block content %}
-    {% endblock %}
+    <title>
+        {% block title %}
+            Employee Project Management System
+        {% endblock %}
+    </title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+</head>
+
+
+<body class="min-h-screen bg-zinc-50 text-zinc-800 antialiased flex flex-col">
+
+
+    <!-- ========================================================= -->
+    <!-- NAVIGATION -->
+    <!-- ========================================================= -->
+
+    <header
+        class="sticky top-0 z-50
+               bg-white/90 backdrop-blur-xl
+               border-b border-zinc-200
+               shadow-sm">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="h-16 flex items-center justify-between">
+
+
+                <!-- ================= BRAND ================= -->
+
+                <a
+                    href="{% url 'home' %}"
+                    class="flex items-center gap-3 group">
+
+                    <!-- Logo -->
+
+                    <div
+                        class="w-10 h-10 rounded-xl
+                               bg-gradient-to-br
+                               from-rose-700 to-red-600
+                               flex items-center justify-center
+                               shadow-lg shadow-rose-700/20
+                               group-hover:scale-105
+                               transition-all duration-200">
+
+                        <span
+                            class="text-white font-bold text-sm">
+                            EP
+                        </span>
+
+                    </div>
+
+
+                    <!-- Brand -->
+
+                    <div class="hidden sm:block">
+
+                        <h1
+                            class="text-sm font-bold
+                                   text-zinc-900
+                                   tracking-tight">
+
+                            Employee PMS
+
+                        </h1>
+
+                        <p
+                            class="text-[10px]
+                                   text-zinc-400
+                                   uppercase
+                                   tracking-[0.18em]">
+
+                            Management System
+
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+                <!-- ================= NAVIGATION ================= -->
+
+                <nav class="hidden md:flex items-center gap-1">
+
+
+                    <!-- HOME -->
+
+                    <a
+                        href="{% url 'home' %}"
+                        class="group flex items-center gap-2
+                               px-4 py-2.5 rounded-xl
+                               text-sm font-medium
+                               text-zinc-600
+                               hover:text-rose-700
+                               hover:bg-rose-50
+                               transition-all duration-200">
+
+                        <svg
+                            class="w-4 h-4
+                                   text-zinc-400
+                                   group-hover:text-rose-600"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 12l9-9 9 9
+                                   M5 10v10a1 1 0 001 1h4v-6h4v6h4
+                                   a1 1 0 001-1V10"/>
+
+                        </svg>
+
+                        Home
+
+                    </a>
+
+
+                    <!-- EMPLOYEES -->
+
+                    <a
+                        href="{% url 'list' %}"
+                        class="group flex items-center gap-2
+                               px-4 py-2.5 rounded-xl
+                               text-sm font-medium
+                               text-zinc-600
+                               hover:text-rose-700
+                               hover:bg-rose-50
+                               transition-all duration-200">
+
+                        <svg
+                            class="w-4 h-4
+                                   text-zinc-400
+                                   group-hover:text-rose-600"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M16 21v-2a4 4 0 00-4-4H6
+                                   a4 4 0 00-4 4v2
+                                   M9 11a4 4 0 100-8
+                                   4 4 0 000 8
+                                   M22 21v-2a4 4 0 00-3-3.87
+                                   M16 3.13a4 4 0 010 7.75"/>
+
+                        </svg>
+
+                        Employees
+
+                    </a>
+
+
+                    <!-- PROJECTS -->
+
+                    <a
+                        href="{% url 'projects' %}"
+                        class="group flex items-center gap-2
+                               px-4 py-2.5 rounded-xl
+                               text-sm font-medium
+                               text-zinc-600
+                               hover:text-rose-700
+                               hover:bg-rose-50
+                               transition-all duration-200">
+
+                        <svg
+                            class="w-4 h-4
+                                   text-zinc-400
+                                   group-hover:text-rose-600"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 7a2 2 0 012-2h5l2 2h7
+                                   a2 2 0 012 2v10
+                                   a2 2 0 01-2 2H5
+                                   a2 2 0 01-2-2V7z"/>
+
+                        </svg>
+
+                        Projects
+
+                    </a>
+
+
+                    <!-- DIVIDER -->
+
+                    <div class="h-6 w-px bg-zinc-200 mx-2"></div>
+
+
+                    <!-- ADMIN -->
+
+                    <a
+                        href="/admin/"
+                        class="flex items-center gap-2
+                               px-4 py-2 rounded-xl
+                               text-xs font-semibold
+                               uppercase tracking-wider
+                               text-zinc-500
+                               bg-zinc-100
+                               border border-zinc-200
+                               hover:bg-zinc-200
+                               hover:text-zinc-900
+                               transition-all duration-200">
+
+                        <svg
+                            class="w-3.5 h-3.5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 15.5a3.5 3.5 0 100-7
+                                   3.5 3.5 0 000 7z"/>
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M19.4 15a1.7 1.7 0 00.34 1.88
+                                   l.06.06-1.7 1.7-.06-.06
+                                   A1.7 1.7 0 0016.16 19
+                                   a1.7 1.7 0 00-1.66 1.3H9.5
+                                   A1.7 1.7 0 007.84 19
+                                   a1.7 1.7 0 00-1.88-.34
+                                   l-.06.06-1.7-1.7.06-.06
+                                   A1.7 1.7 0 004.6 15
+                                   a1.7 1.7 0 00-1.3-1.66V10.5
+                                   A1.7 1.7 0 004.6 8.84
+                                   a1.7 1.7 0 00-.34-1.88
+                                   l-.06-.06 1.7-1.7.06.06
+                                   A1.7 1.7 0 007.84 5
+                                   A1.7 1.7 0 009.5 3.7h5
+                                   A1.7 1.7 0 0016.16 5
+                                   a1.7 1.7 0 001.88.34
+                                   l.06-.06 1.7 1.7-.06.06
+                                   A1.7 1.7 0 0019.4 8.84
+                                   A1.7 1.7 0 0020.7 10.5v2.84
+                                   A1.7 1.7 0 0019.4 15z"/>
+
+                        </svg>
+
+                        Admin
+
+                    </a>
+
+                </nav>
+
+
+                <!-- ================= USER ================= -->
+
+                <div class="flex items-center gap-3">
+
+
+                    <!-- User Information -->
+
+                    <div class="hidden sm:flex flex-col items-end">
+
+                        <span
+                            class="text-xs font-semibold text-zinc-700">
+
+                            Administrator
+
+                        </span>
+
+                        <span
+                            class="flex items-center gap-1.5
+                                   text-[11px]
+                                   font-medium
+                                   text-emerald-600">
+
+                            <span
+                                class="w-1.5 h-1.5
+                                       rounded-full
+                                       bg-emerald-500
+                                       animate-pulse">
+                            </span>
+
+                            System Online
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- Avatar -->
+
+                    <div
+                        class="w-10 h-10 rounded-xl
+                               bg-gradient-to-br
+                               from-zinc-800 to-zinc-950
+                               border border-zinc-300
+                               flex items-center justify-center
+                               text-xs font-bold
+                               text-white shadow-md">
+
+                        AD
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ========================================================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ========================================================= -->
+
+    <main class="flex-grow">
+
+        <div
+            class="max-w-7xl mx-auto
+                   px-4 sm:px-6 lg:px-8
+                   py-8">
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+
+    </main>
+
+
+    <!-- ========================================================= -->
+    <!-- FOOTER -->
+    <!-- ========================================================= -->
+
+    <footer
+        class="bg-white
+               border-t border-zinc-200
+               mt-auto">
+
+        <div
+            class="max-w-7xl mx-auto
+                   px-4 sm:px-6 lg:px-8
+                   py-6">
+
+            <div
+                class="flex flex-col
+                       sm:flex-row
+                       items-center
+                       justify-between
+                       gap-4">
+
+
+                <!-- Copyright -->
+
+                <div class="flex items-center gap-2">
+
+                    <div
+                        class="w-7 h-7 rounded-lg
+                               bg-rose-700
+                               flex items-center
+                               justify-center">
+
+                        <span
+                            class="text-[9px]
+                                   font-bold text-white">
+
+                            EP
+
+                        </span>
+
+                    </div>
+
+                    <p class="text-xs text-zinc-400">
+
+                        © 2026 Employee Project Management System
+
+                    </p>
+
+                </div>
+
+
+                <!-- Footer Links -->
+
+                <div
+                    class="flex items-center
+                           gap-4
+                           text-xs
+                           text-zinc-400">
+
+                    <a
+                        href="#"
+                        class="hover:text-rose-700
+                               transition-colors">
+
+                        Privacy
+
+                    </a>
+
+                    <span class="text-zinc-300">
+                        •
+                    </span>
+
+                    <a
+                        href="#"
+                        class="hover:text-rose-700
+                               transition-colors">
+
+                        Terms
+
+                    </a>
+
+                    <span class="text-zinc-300">
+                        •
+                    </span>
+
+                    <a
+                        href="#"
+                        class="hover:text-rose-700
+                               transition-colors">
+
+                        Support
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
 
 </body>
+
 </html>

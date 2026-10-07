@@ -1,70 +1,896 @@
 {% extends 'base.html' %}
 
-
-
 {% block content %}
 
-<h2>Employee List</h2>
-<form method="GET">
-    <label for="department">Department: </label>
-    <select name="department" id="department">
-        <option value="">All</option>
-        <option value="IT">IT</option>
-        <option value="HR">HR</option>
-        <option value="FIN">Finance</option>
-        <option value="MKT">Marketing</option>
-    </select>
-    <button type="submit">Search</button>
-</form>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-<table>
-    <thead>
-        <tr>
-            <th>Employee</th>
-            <th>Department</th>
-            <th>Designation</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
+    <!-- ========================================================= -->
+    <!-- PAGE HEADER -->
+    <!-- ========================================================= -->
 
-    <tbody>
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
 
-        {% for employee in employees %}
+        <div>
 
-        <tr>
-            <td>{{ employee.Name }}</td>
-            <td>{{ employee.Department }}</td>
-            <td>{{ employee.Designation }}</td>
+            <div class="flex items-center gap-2 mb-2">
 
-            <td>
-                {% if employee.is_Active %}
-                    Active
-                {% else %}
-                    Inactive
-                {% endif %}
-            </td>
+                <span class="w-2 h-2 rounded-full bg-rose-700"></span>
 
-            <td>
-                <a href="{% url 'employee_detail' employee.Employee_id %}">
-    View
-</a>
-            </td>
-        </tr>
+                <p class="text-xs font-bold uppercase tracking-[0.18em] text-rose-700">
+                    Workforce
+                </p>
 
-        {% empty %}
+            </div>
 
-        <tr>
-            <td colspan="5">No employees found.</td>
-        </tr>
+            <h1 class="text-3xl sm:text-4xl font-bold text-zinc-900 tracking-tight">
+                Employee List
+            </h1>
 
-        {% endfor %}
+            <p class="mt-2 text-sm text-zinc-500">
+                Manage and view all employees in your organization.
+            </p>
 
-    </tbody>
-</table>
+        </div>
 
-<br>
 
-<a href="{% url 'home' %}">Back to Home</a>
+        <!-- Employee Count -->
+
+        <div
+            class="inline-flex items-center gap-3
+                   bg-white
+                   border border-zinc-200
+                   rounded-xl
+                   px-4 py-3
+                   shadow-sm">
+
+            <div
+                class="w-9 h-9
+                       rounded-lg
+                       bg-rose-50
+                       border border-rose-100
+                       flex items-center
+                       justify-center">
+
+                <svg
+                    class="w-4 h-4 text-rose-700"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    viewBox="0 0 24 24">
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2" />
+
+                    <circle
+                        cx="9"
+                        cy="7"
+                        r="4" />
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M22 21v-2a4 4 0 00-3-3.87
+                           M16 3.13a4 4 0 010 7.75" />
+
+                </svg>
+
+            </div>
+
+            <div>
+
+                <p class="text-xs text-zinc-400 font-medium">
+                    Total Employees
+                </p>
+
+                <p class="text-lg font-bold text-zinc-900">
+                    {{ employees|length }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- COMPACT DEPARTMENT FILTER -->
+    <!-- ========================================================= -->
+
+    <div
+        class="bg-white
+               rounded-xl
+               border border-zinc-200
+               shadow-sm
+               px-4 py-3
+               mb-6">
+
+        <div
+            class="flex flex-col
+                   lg:flex-row
+                   lg:items-center
+                   gap-3">
+
+
+            <!-- Filter Label -->
+
+            <div class="flex items-center gap-2 shrink-0">
+
+                <div
+                    class="w-8 h-8
+                           rounded-lg
+                           bg-rose-50
+                           border border-rose-100
+                           flex items-center
+                           justify-center">
+
+                    <svg
+                        class="w-4 h-4 text-rose-700"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 5h18
+                               M6 10h12
+                               M10 15h4
+                               M11 20h2" />
+
+                    </svg>
+
+                </div>
+
+                <div>
+
+                    <p class="text-xs font-bold text-zinc-900">
+                        Department
+                    </p>
+
+                    <p class="text-[10px] text-zinc-400">
+                        Filter employees
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Divider -->
+
+            <div class="hidden lg:block w-px h-8 bg-zinc-200"></div>
+
+
+            <!-- Filter Buttons -->
+
+            <form method="GET" class="flex-1">
+
+                <div
+                    class="flex flex-wrap
+                           items-center
+                           gap-2">
+
+
+                    <!-- ALL -->
+
+                    <button
+                        type="submit"
+                        name="department"
+                        value=""
+                        class="inline-flex
+                               items-center
+                               gap-1.5
+                               rounded-lg
+                               bg-rose-700
+                               px-3 py-2
+                               text-[11px]
+                               font-bold
+                               text-white
+                               shadow-sm
+                               hover:bg-rose-800
+                               transition-all
+                               duration-200">
+
+                        <svg
+                            class="w-3.5 h-3.5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24">
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M4 6h16
+                                   M4 12h16
+                                   M4 18h16" />
+
+                        </svg>
+
+                        All
+
+                    </button>
+
+
+                    <!-- IT -->
+
+                    <button
+                        type="submit"
+                        name="department"
+                        value="IT"
+                        class="inline-flex
+                               items-center
+                               gap-1.5
+                               rounded-lg
+                               border border-zinc-200
+                               bg-zinc-50
+                               px-3 py-2
+                               text-[11px]
+                               font-bold
+                               text-zinc-600
+                               hover:border-rose-200
+                               hover:bg-rose-50
+                               hover:text-rose-700
+                               transition-all
+                               duration-200">
+
+                        <span
+                            class="w-1.5 h-1.5
+                                   rounded-full
+                                   bg-rose-500">
+                        </span>
+
+                        IT
+
+                    </button>
+
+
+                    <!-- HR -->
+
+                    <button
+                        type="submit"
+                        name="department"
+                        value="HR"
+                        class="inline-flex
+                               items-center
+                               gap-1.5
+                               rounded-lg
+                               border border-zinc-200
+                               bg-zinc-50
+                               px-3 py-2
+                               text-[11px]
+                               font-bold
+                               text-zinc-600
+                               hover:border-rose-200
+                               hover:bg-rose-50
+                               hover:text-rose-700
+                               transition-all
+                               duration-200">
+
+                        <span
+                            class="w-1.5 h-1.5
+                                   rounded-full
+                                   bg-amber-500">
+                        </span>
+
+                        HR
+
+                    </button>
+
+
+                    <!-- FINANCE -->
+
+                    <button
+                        type="submit"
+                        name="department"
+                        value="FIN"
+                        class="inline-flex
+                               items-center
+                               gap-1.5
+                               rounded-lg
+                               border border-zinc-200
+                               bg-zinc-50
+                               px-3 py-2
+                               text-[11px]
+                               font-bold
+                               text-zinc-600
+                               hover:border-rose-200
+                               hover:bg-rose-50
+                               hover:text-rose-700
+                               transition-all
+                               duration-200">
+
+                        <span
+                            class="w-1.5 h-1.5
+                                   rounded-full
+                                   bg-emerald-500">
+                        </span>
+
+                        Finance
+
+                    </button>
+
+
+                    <!-- MARKETING -->
+
+                    <button
+                        type="submit"
+                        name="department"
+                        value="MKT"
+                        class="inline-flex
+                               items-center
+                               gap-1.5
+                               rounded-lg
+                               border border-zinc-200
+                               bg-zinc-50
+                               px-3 py-2
+                               text-[11px]
+                               font-bold
+                               text-zinc-600
+                               hover:border-rose-200
+                               hover:bg-rose-50
+                               hover:text-rose-700
+                               transition-all
+                               duration-200">
+
+                        <span
+                            class="w-1.5 h-1.5
+                                   rounded-full
+                                   bg-violet-500">
+                        </span>
+
+                        Marketing
+
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <!-- Clear Filter -->
+
+            <a
+                href="{% url 'list' %}"
+                class="inline-flex
+                       items-center
+                       gap-1.5
+                       shrink-0
+                       rounded-lg
+                       px-3 py-2
+                       text-[11px]
+                       font-semibold
+                       text-zinc-400
+                       hover:bg-zinc-100
+                       hover:text-zinc-700
+                       transition-all
+                       duration-200">
+
+                <svg
+                    class="w-3.5 h-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    viewBox="0 0 24 24">
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18L18 6
+                           M6 6l12 12" />
+
+                </svg>
+
+                Clear
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- EMPLOYEE TABLE -->
+    <!-- ========================================================= -->
+
+    <div
+        class="bg-white
+               rounded-2xl
+               border border-zinc-200
+               shadow-sm
+               overflow-hidden">
+
+
+        <!-- Table Header -->
+
+        <div
+            class="px-5 sm:px-6
+                   py-5
+                   border-b border-zinc-200
+                   flex flex-col
+                   sm:flex-row
+                   sm:items-center
+                   sm:justify-between
+                   gap-3">
+
+            <div>
+
+                <h2 class="text-base font-bold text-zinc-900">
+                    Employees
+                </h2>
+
+                <p class="text-xs text-zinc-400 mt-1">
+                    Employee directory and current status
+                </p>
+
+            </div>
+
+
+            <div
+                class="inline-flex
+                       items-center
+                       gap-2
+                       text-xs
+                       font-semibold
+                       text-zinc-500">
+
+                <span
+                    class="w-2 h-2
+                           rounded-full
+                           bg-emerald-500">
+                </span>
+
+                Active workforce
+
+            </div>
+
+        </div>
+
+
+        <!-- Responsive Table -->
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full min-w-[760px]">
+
+                <thead>
+
+                    <tr class="bg-zinc-50/80">
+
+                        <th
+                            class="px-6 py-4
+                                   text-left
+                                   text-[11px]
+                                   font-bold
+                                   uppercase
+                                   tracking-wider
+                                   text-zinc-400">
+
+                            Employee
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-left
+                                   text-[11px]
+                                   font-bold
+                                   uppercase
+                                   tracking-wider
+                                   text-zinc-400">
+
+                            Department
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-left
+                                   text-[11px]
+                                   font-bold
+                                   uppercase
+                                   tracking-wider
+                                   text-zinc-400">
+
+                            Designation
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-left
+                                   text-[11px]
+                                   font-bold
+                                   uppercase
+                                   tracking-wider
+                                   text-zinc-400">
+
+                            Status
+
+                        </th>
+
+                        <th
+                            class="px-6 py-4
+                                   text-right
+                                   text-[11px]
+                                   font-bold
+                                   uppercase
+                                   tracking-wider
+                                   text-zinc-400">
+
+                            Action
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody class="divide-y divide-zinc-100">
+
+
+                    {% for employee in employees %}
+
+
+                    <!-- Employee Row -->
+
+                    <tr
+                        class="group
+                               hover:bg-rose-50/30
+                               transition-colors
+                               duration-200">
+
+
+                        <!-- Employee -->
+
+                        <td class="px-6 py-5">
+
+                            <div class="flex items-center gap-3">
+
+                                <div
+                                    class="w-10 h-10
+                                           shrink-0
+                                           rounded-xl
+                                           bg-gradient-to-br
+                                           from-rose-700
+                                           to-red-600
+                                           text-white
+                                           flex items-center
+                                           justify-center
+                                           text-sm
+                                           font-bold
+                                           shadow-sm">
+
+                                    {{ employee.Name|first|upper }}
+
+                                </div>
+
+
+                                <div>
+
+                                    <p
+                                        class="text-sm
+                                               font-bold
+                                               text-zinc-900
+                                               group-hover:text-rose-700
+                                               transition-colors">
+
+                                        {{ employee.Name }}
+
+                                    </p>
+
+                                    <p class="text-xs text-zinc-400 mt-0.5">
+
+                                        ID: {{ employee.Employee_id }}
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- Department -->
+
+                        <td class="px-6 py-5">
+
+                            <span
+                                class="inline-flex
+                                       items-center
+                                       rounded-lg
+                                       bg-zinc-100
+                                       px-2.5 py-1
+                                       text-xs
+                                       font-semibold
+                                       text-zinc-600">
+
+                                {{ employee.Department }}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- Designation -->
+
+                        <td class="px-6 py-5">
+
+                            <p
+                                class="text-sm
+                                       font-medium
+                                       text-zinc-700">
+
+                                {{ employee.Designation }}
+
+                            </p>
+
+                        </td>
+
+
+                        <!-- Status -->
+
+                        <td class="px-6 py-5">
+
+                            {% if employee.is_Active %}
+
+                            <span
+                                class="inline-flex
+                                       items-center
+                                       gap-1.5
+                                       rounded-full
+                                       bg-emerald-50
+                                       border border-emerald-100
+                                       px-3 py-1
+                                       text-xs
+                                       font-bold
+                                       text-emerald-700">
+
+                                <span
+                                    class="w-1.5 h-1.5
+                                           rounded-full
+                                           bg-emerald-500">
+                                </span>
+
+                                Active
+
+                            </span>
+
+                            {% else %}
+
+                            <span
+                                class="inline-flex
+                                       items-center
+                                       gap-1.5
+                                       rounded-full
+                                       bg-zinc-100
+                                       border border-zinc-200
+                                       px-3 py-1
+                                       text-xs
+                                       font-bold
+                                       text-zinc-500">
+
+                                <span
+                                    class="w-1.5 h-1.5
+                                           rounded-full
+                                           bg-zinc-400">
+                                </span>
+
+                                Inactive
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Action -->
+
+                        <td class="px-6 py-5 text-right">
+
+                            <a
+                                href="{% url 'employee_detail' employee.Employee_id %}"
+                                class="inline-flex
+                                       items-center
+                                       gap-2
+                                       rounded-lg
+                                       border border-zinc-200
+                                       bg-white
+                                       px-3 py-2
+                                       text-xs
+                                       font-bold
+                                       text-zinc-600
+                                       shadow-sm
+                                       hover:border-rose-200
+                                       hover:bg-rose-50
+                                       hover:text-rose-700
+                                       transition-all
+                                       duration-200">
+
+                                View Details
+
+                                <svg
+                                    class="w-3.5 h-3.5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24">
+
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M9 5l7 7-7 7" />
+
+                                </svg>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+
+                    <!-- ================================================= -->
+                    <!-- EMPTY STATE -->
+                    <!-- ================================================= -->
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="px-6 py-16">
+
+                            <div
+                                class="flex flex-col
+                                       items-center
+                                       justify-center
+                                       text-center">
+
+
+                                <div
+                                    class="w-16 h-16
+                                           rounded-2xl
+                                           bg-zinc-100
+                                           flex items-center
+                                           justify-center
+                                           mb-4">
+
+                                    <svg
+                                        class="w-7 h-7 text-zinc-400"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.6"
+                                        viewBox="0 0 24 24">
+
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2" />
+
+                                        <circle
+                                            cx="9"
+                                            cy="7"
+                                            r="4" />
+
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M22 21v-2a4 4 0 00-3-3.87
+                                               M16 3.13a4 4 0 010 7.75" />
+
+                                    </svg>
+
+                                </div>
+
+
+                                <h3
+                                    class="text-sm
+                                           font-bold
+                                           text-zinc-900">
+
+                                    No employees found
+
+                                </h3>
+
+
+                                <p
+                                    class="mt-1
+                                           max-w-sm
+                                           text-xs
+                                           text-zinc-400">
+
+                                    There are no employees matching the
+                                    selected department.
+
+                                </p>
+
+
+                                <a
+                                    href="{% url 'list' %}"
+                                    class="mt-5
+                                           inline-flex
+                                           items-center
+                                           gap-2
+                                           rounded-lg
+                                           bg-rose-700
+                                           px-4 py-2.5
+                                           text-xs
+                                           font-bold
+                                           text-white
+                                           hover:bg-rose-800
+                                           transition-colors">
+
+                                    View All Employees
+
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- BACK TO HOME -->
+    <!-- ========================================================= -->
+
+    <div class="mt-6">
+
+        <a
+            href="{% url 'home' %}"
+            class="inline-flex
+                   items-center
+                   gap-2
+                   text-sm
+                   font-semibold
+                   text-zinc-500
+                   hover:text-rose-700
+                   transition-colors">
+
+            <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewBox="0 0 24 24">
+
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19 12H5
+                       M12 19l-7-7 7-7" />
+
+            </svg>
+
+            Back to Home
+
+        </a>
+
+    </div>
+
+</div>
 
 {% endblock %}
