@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,18 +64,23 @@
 
                     <!-- Logo -->
 
-                    <div
+                    <!-- <div
                         class="w-10 h-10 rounded-xl
                                bg-gradient-to-br
                                from-rose-700 to-red-600
                                flex items-center justify-center
                                shadow-lg shadow-rose-700/20
                                group-hover:scale-105
-                               transition-all duration-200">
-
+                               transition-all duration-200"
+                               > -->
+                    <div>
                         <span
                             class="text-white font-bold text-sm">
-                            EP
+                            <img 
+                                src="{% static 'images/1.png' %}" 
+                                alt="workteck logo"
+                                class="w-10 h-10 rounded-xl"
+                                >
                         </span>
 
                     </div>

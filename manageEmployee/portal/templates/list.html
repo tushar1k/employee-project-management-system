@@ -95,281 +95,38 @@
     </div>
 
 
-    <!-- ========================================================= -->
-    <!-- COMPACT DEPARTMENT FILTER -->
-    <!-- ========================================================= -->
+   <!-- ========================================================= -->
+<!-- COMPACT DEPARTMENT FILTER -->
+<!-- ========================================================= -->
+
+<div
+    class="bg-white
+           rounded-xl
+           border border-zinc-200
+           shadow-sm
+           px-4 py-3
+           mb-6">
 
     <div
-        class="bg-white
-               rounded-xl
-               border border-zinc-200
-               shadow-sm
-               px-4 py-3
-               mb-6">
+        class="flex flex-col
+               lg:flex-row
+               lg:items-center
+               gap-3">
 
-        <div
-            class="flex flex-col
-                   lg:flex-row
-                   lg:items-center
-                   gap-3">
+        <!-- Filter Label -->
 
-            <!-- Filter Label -->
+        <div class="flex items-center gap-2 shrink-0">
 
-            <div class="flex items-center gap-2 shrink-0">
-
-                <div
-                    class="w-8 h-8
-                           rounded-lg
-                           bg-rose-50
-                           border border-rose-100
-                           flex items-center
-                           justify-center">
-
-                    <svg
-                        class="w-4 h-4 text-rose-700"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        viewBox="0 0 24 24">
-
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M3 5h18
-                               M6 10h12
-                               M10 15h4
-                               M11 20h2" />
-
-                    </svg>
-
-                </div>
-
-                <div>
-
-                    <p class="text-xs font-bold text-zinc-900">
-                        Department
-                    </p>
-
-                    <p class="text-[10px] text-zinc-400">
-                        Filter employees
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- Divider -->
-
-            <div class="hidden lg:block w-px h-8 bg-zinc-200"></div>
-
-
-            <!-- Filter Buttons -->
-
-            <form method="GET" class="flex-1">
-
-                <div
-                    class="flex flex-wrap
-                           items-center
-                           gap-2">
-
-                    <!-- ALL -->
-
-                    <button
-                        type="submit"
-                        name="department"
-                        value=""
-                        class="inline-flex
-                               items-center
-                               gap-1.5
-                               rounded-lg
-                               bg-rose-700
-                               px-3 py-2
-                               text-[11px]
-                               font-bold
-                               text-white
-                               shadow-sm
-                               hover:bg-rose-800
-                               transition-all
-                               duration-200">
-
-                        <svg
-                            class="w-3.5 h-3.5"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            viewBox="0 0 24 24">
-
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M4 6h16
-                                   M4 12h16
-                                   M4 18h16" />
-
-                        </svg>
-
-                        All
-
-                    </button>
-
-
-                    <!-- IT -->
-
-                    <button
-                        type="submit"
-                        name="department"
-                        value="IT"
-                        class="inline-flex
-                               items-center
-                               gap-1.5
-                               rounded-lg
-                               border border-zinc-200
-                               bg-zinc-50
-                               px-3 py-2
-                               text-[11px]
-                               font-bold
-                               text-zinc-600
-                               hover:border-rose-200
-                               hover:bg-rose-50
-                               hover:text-rose-700
-                               transition-all
-                               duration-200">
-
-                        <span
-                            class="w-1.5 h-1.5
-                                   rounded-full
-                                   bg-rose-500">
-                        </span>
-
-                        IT
-
-                    </button>
-
-
-                    <!-- HR -->
-
-                    <button
-                        type="submit"
-                        name="department"
-                        value="HR"
-                        class="inline-flex
-                               items-center
-                               gap-1.5
-                               rounded-lg
-                               border border-zinc-200
-                               bg-zinc-50
-                               px-3 py-2
-                               text-[11px]
-                               font-bold
-                               text-zinc-600
-                               hover:border-rose-200
-                               hover:bg-rose-50
-                               hover:text-rose-700
-                               transition-all
-                               duration-200">
-
-                        <span
-                            class="w-1.5 h-1.5
-                                   rounded-full
-                                   bg-amber-500">
-                        </span>
-
-                        HR
-
-                    </button>
-
-
-                    <!-- FINANCE -->
-
-                    <button
-                        type="submit"
-                        name="department"
-                        value="FIN"
-                        class="inline-flex
-                               items-center
-                               gap-1.5
-                               rounded-lg
-                               border border-zinc-200
-                               bg-zinc-50
-                               px-3 py-2
-                               text-[11px]
-                               font-bold
-                               text-zinc-600
-                               hover:border-rose-200
-                               hover:bg-rose-50
-                               hover:text-rose-700
-                               transition-all
-                               duration-200">
-
-                        <span
-                            class="w-1.5 h-1.5
-                                   rounded-full
-                                   bg-emerald-500">
-                        </span>
-
-                        Finance
-
-                    </button>
-
-
-                    <!-- MARKETING -->
-
-                    <button
-                        type="submit"
-                        name="department"
-                        value="MKT"
-                        class="inline-flex
-                               items-center
-                               gap-1.5
-                               rounded-lg
-                               border border-zinc-200
-                               bg-zinc-50
-                               px-3 py-2
-                               text-[11px]
-                               font-bold
-                               text-zinc-600
-                               hover:border-rose-200
-                               hover:bg-rose-50
-                               hover:text-rose-700
-                               transition-all
-                               duration-200">
-
-                        <span
-                            class="w-1.5 h-1.5
-                                   rounded-full
-                                   bg-violet-500">
-                        </span>
-
-                        Marketing
-
-                    </button>
-
-                </div>
-
-            </form>
-
-
-            <!-- Clear Filter -->
-
-            <a
-                href="{% url 'list' %}"
-                class="inline-flex
-                       items-center
-                       gap-1.5
-                       shrink-0
+            <div
+                class="w-8 h-8
                        rounded-lg
-                       px-3 py-2
-                       text-[11px]
-                       font-semibold
-                       text-zinc-400
-                       hover:bg-zinc-100
-                       hover:text-zinc-700
-                       transition-all
-                       duration-200">
+                       bg-rose-50
+                       border border-rose-100
+                       flex items-center
+                       justify-center">
 
                 <svg
-                    class="w-3.5 h-3.5"
+                    class="w-4 h-4 text-rose-700"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="1.8"
@@ -378,19 +135,298 @@
                     <path
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        d="M6 18L18 6
-                           M6 6l12 12" />
+                        d="M3 5h18
+                           M6 10h12
+                           M10 15h4
+                           M11 20h2" />
 
                 </svg>
 
-                Clear
+            </div>
 
-            </a>
+            <div>
+
+                <p class="text-xs font-bold text-zinc-900">
+                    Department
+                </p>
+
+                <p class="text-[10px] text-zinc-400">
+                    Filter employees
+                </p>
+
+            </div>
 
         </div>
 
+
+        <!-- Divider -->
+
+        <div class="hidden lg:block w-px h-8 bg-zinc-200"></div>
+
+
+        <!-- Filter Buttons -->
+
+        <form method="GET" class="flex-1">
+
+            <div
+                class="flex flex-wrap
+                       items-center
+                       gap-2">
+
+                <!-- ALL -->
+
+                <button
+                    type="submit"
+                    name="department"
+                    value=""
+                    class="inline-flex
+                           items-center
+                           gap-1.5
+                           rounded-lg
+                           px-3 py-2
+                           text-[11px]
+                           font-bold
+                           shadow-sm
+                           transition-all
+                           duration-200
+                           {% if not request.GET.department %}
+                               bg-rose-700
+                               text-white
+                               hover:bg-rose-800
+                           {% else %}
+                               border border-zinc-200
+                               bg-zinc-50
+                               text-zinc-600
+                               hover:border-rose-200
+                               hover:bg-rose-50
+                               hover:text-rose-700
+                           {% endif %}">
+
+                    <svg
+                        class="w-3.5 h-3.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4 6h16
+                               M4 12h16
+                               M4 18h16" />
+
+                    </svg>
+
+                    All
+
+                </button>
+
+
+                <!-- IT -->
+
+                <button
+                    type="submit"
+                    name="department"
+                    value="IT"
+                    class="inline-flex
+                           items-center
+                           gap-1.5
+                           rounded-lg
+                           px-3 py-2
+                           text-[11px]
+                           font-bold
+                           transition-all
+                           duration-200
+                           {% if request.GET.department == 'IT' %}
+                               bg-rose-700
+                               text-white
+                               shadow-sm
+                               hover:bg-rose-800
+                           {% else %}
+                               border border-zinc-200
+                               bg-zinc-50
+                               text-zinc-600
+                               hover:border-rose-200
+                               hover:bg-rose-50
+                               hover:text-rose-700
+                           {% endif %}">
+
+                    <span
+                        class="w-1.5 h-1.5
+                               rounded-full
+                               bg-rose-500">
+                    </span>
+
+                    IT
+
+                </button>
+
+
+                <!-- HR -->
+
+                <button
+                    type="submit"
+                    name="department"
+                    value="HR"
+                    class="inline-flex
+                           items-center
+                           gap-1.5
+                           rounded-lg
+                           px-3 py-2
+                           text-[11px]
+                           font-bold
+                           transition-all
+                           duration-200
+                           {% if request.GET.department == 'HR' %}
+                               bg-rose-700
+                               text-white
+                               shadow-sm
+                               hover:bg-rose-800
+                           {% else %}
+                               border border-zinc-200
+                               bg-zinc-50
+                               text-zinc-600
+                               hover:border-rose-200
+                               hover:bg-rose-50
+                               hover:text-rose-700
+                           {% endif %}">
+
+                    <span
+                        class="w-1.5 h-1.5
+                               rounded-full
+                               bg-amber-500">
+                    </span>
+
+                    HR
+
+                </button>
+
+
+                <!-- FINANCE -->
+
+                <button
+                    type="submit"
+                    name="department"
+                    value="FIN"
+                    class="inline-flex
+                           items-center
+                           gap-1.5
+                           rounded-lg
+                           px-3 py-2
+                           text-[11px]
+                           font-bold
+                           transition-all
+                           duration-200
+                           {% if request.GET.department == 'FIN' %}
+                               bg-rose-700
+                               text-white
+                               shadow-sm
+                               hover:bg-rose-800
+                           {% else %}
+                               border border-zinc-200
+                               bg-zinc-50
+                               text-zinc-600
+                               hover:border-rose-200
+                               hover:bg-rose-50
+                               hover:text-rose-700
+                           {% endif %}">
+
+                    <span
+                        class="w-1.5 h-1.5
+                               rounded-full
+                               bg-emerald-500">
+                    </span>
+
+                    Finance
+
+                </button>
+
+
+                <!-- MARKETING -->
+
+                <button
+                    type="submit"
+                    name="department"
+                    value="MKT"
+                    class="inline-flex
+                           items-center
+                           gap-1.5
+                           rounded-lg
+                           px-3 py-2
+                           text-[11px]
+                           font-bold
+                           transition-all
+                           duration-200
+                           {% if request.GET.department == 'MKT' %}
+                               bg-rose-700
+                               text-white
+                               shadow-sm
+                               hover:bg-rose-800
+                           {% else %}
+                               border border-zinc-200
+                               bg-zinc-50
+                               text-zinc-600
+                               hover:border-rose-200
+                               hover:bg-rose-50
+                               hover:text-rose-700
+                           {% endif %}">
+
+                    <span
+                        class="w-1.5 h-1.5
+                               rounded-full
+                               bg-violet-500">
+                    </span>
+
+                    Marketing
+
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <!-- Clear Filter -->
+
+        <a
+            href="{% url 'list' %}"
+            class="inline-flex
+                   items-center
+                   gap-1.5
+                   shrink-0
+                   rounded-lg
+                   px-3 py-2
+                   text-[11px]
+                   font-semibold
+                   text-zinc-400
+                   hover:bg-zinc-100
+                   hover:text-zinc-700
+                   transition-all
+                   duration-200">
+
+            <svg
+                class="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewBox="0 0 24 24">
+
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6
+                       M6 6l12 12" />
+
+            </svg>
+
+            Clear
+
+        </a>
+
     </div>
 
+</div>
 
     <!-- ========================================================= -->
     <!-- EMPLOYEE TABLE -->
@@ -880,66 +916,63 @@
 
             <!-- Pagination Buttons -->
 
-            <div class="flex items-center gap-2">
+<div class="flex items-center gap-2">
 
-                {% if employees.has_previous %}
+    {% if employees.has_previous %}
 
-                <a
-                    href="?page={{ employees.previous_page_number }}"
-                    class="inline-flex
-                           items-center
-                           gap-2
-                           rounded-lg
-                           border border-zinc-200
-                           bg-white
-                           px-4 py-2
-                           text-xs
-                           font-bold
-                           text-zinc-600
-                           shadow-sm
-                           hover:border-rose-200
-                           hover:bg-rose-50
-                           hover:text-rose-700
-                           transition-all
-                           duration-200">
+        <a
+            href="?department={{ request.GET.department }}&page={{ employees.previous_page_number }}"
+            class="inline-flex
+                   items-center
+                   gap-2
+                   rounded-lg
+                   border border-zinc-200
+                   bg-white
+                   px-4 py-2
+                   text-xs
+                   font-bold
+                   text-zinc-600
+                   shadow-sm
+                   hover:border-rose-200
+                   hover:bg-rose-50
+                   hover:text-rose-700
+                   transition-all
+                   duration-200">
 
-                    <span>←</span>
+            <span>←</span>
+            Previous
 
-                    Previous
+        </a>
 
-                </a>
-
-                {% endif %}
+    {% endif %}
 
 
-                {% if employees.has_next %}
+    {% if employees.has_next %}
 
-                <a
-                    href="?page={{ employees.next_page_number }}"
-                    class="inline-flex
-                           items-center
-                           gap-2
-                           rounded-lg
-                           bg-rose-700
-                           px-4 py-2
-                           text-xs
-                           font-bold
-                           text-white
-                           shadow-sm
-                           hover:bg-rose-800
-                           transition-all
-                           duration-200">
+        <a
+            href="?department={{ request.GET.department }}&page={{ employees.next_page_number }}"
+            class="inline-flex
+                   items-center
+                   gap-2
+                   rounded-lg
+                   bg-rose-700
+                   px-4 py-2
+                   text-xs
+                   font-bold
+                   text-white
+                   shadow-sm
+                   hover:bg-rose-800
+                   transition-all
+                   duration-200">
 
-                    Next
+            Next
+            <span>→</span>
 
-                    <span>→</span>
+        </a>
 
-                </a>
+    {% endif %}
 
-                {% endif %}
-
-            </div>
-
+</div>
         </div>
 
     </div>

@@ -22,6 +22,11 @@ def home(request):
 def list(request):
     employees = Employee.objects.all()
 
+    department = request.GET.get('department')
+
+    if department:
+        employees = employees.filter(Department=department)
+
     paginator = Paginator(employees, 10)
 
     page_number = request.GET.get('page')
