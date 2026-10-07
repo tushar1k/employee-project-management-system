@@ -20,37 +20,29 @@ def home(request):
     return render(request,'home.html',context)
 
 def list(request):
-    employee_list = Employee.objects.all()
-    department = request.GET.get('department')
+    employees = Employee.objects.all()
 
-    if department:
-        employee_list = employee_list.filter(Department = department)
+    paginator = Paginator(employees, 10)
 
-    
+    page_number = request.GET.get('page')
 
-    context = {
-        'employees' : employee_list,
-    }
-    return render(request,'list.html',context)
+    employees = paginator.get_page(page_number)
 
+    return render(request, 'list.html', {
+        'employees': employees
+    })
 
 def projects(request):
     projects = Project.objects.all()
+
+    paginator = Paginator(projects, 10)
+    page_number = request.GET.get('page')
+    projects = paginator.get_page(page_number)
+
     context = {
         'projects': projects,
     }
     return render(request, 'projects.html', context)
-
-# def employee_detail(request, id):
-#     employee = get_object_or_404(
-#         Employee,
-#         Employee_id=id
-#         )
-#     context = {
-#         'employee': employee,
-#     }
-#     return render(request, 'employee_detail.html', context)
-
 
 def employee_detail(request, id):
     employee = get_object_or_404(
